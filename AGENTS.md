@@ -4,12 +4,20 @@ Stripe payment gateway plugin for Drop indie commerce (#21).
 
 ## Toolchain
 
-- Node >= 22, pnpm 10+
-- `pnpm install`, `pnpm build`, `pnpm test`
+- Node >= 22, npm 10+
+- `npm ci`, `npm run build`, `npm test`, `npm run typecheck`
 
 ## Contract
 
-Built on [`@droposs/plugin-sdk`](https://github.com/Heretek-Games/drop-plugin-sdk)
-(plugin API v2). The local dependency resolves the sibling checkout at
-`../drop-plugin-sdk/packages/plugin-sdk` so the workspace builds before the
-SDK is republished to npm.
+Built on [`@droposs/plugin-sdk`](https://www.npmjs.com/package/@droposs/plugin-sdk)
+(plugin API v2, `^0.4.0` from the npm registry).
+
+## Security invariants
+
+- `createPaymentIntent` must send `application/x-www-form-urlencoded`, never
+  JSON (Stripe's API rejects or misparses JSON bodies).
+- `handleWebhook` verifies `Stripe-Signature` before parsing: HMAC-SHA256 over
+  `${timestamp}.${rawBody}`, constant-time compare, 300 s replay window, and
+  fails closed when `STRIPE_WEBHOOK_SECRET` is absent.
+- Uses only `node:crypto`; no new dependencies.
+- The host must supply the raw webhook body for signatures to validate.
