@@ -1,0 +1,18 @@
+{
+  "id": "drop-payment-stripe",
+  "name": "Stripe",
+  "version": "0.1.0",
+  "description": "Stripe payment gateway plugin for Drop indie commerce (#21).",
+  "author": "Heretek Games",
+  "apiVersion": 2,
+  "trust": "trusted",
+  "storageVersion": 1,
+  "capabilities": [
+    "commerce:payment",
+    "network"
+  ],
+  "targets": [
+    "server"
+  ],
+  "entry": "dist/src/index.js"
+}
