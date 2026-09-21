@@ -12,7 +12,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@droposs/plugin-sdk": "^0.6.1"
+    "@droposs/plugin-sdk": "^0.7.0"
   },
   "devDependencies": {
     "@droposs/plugin-cli": "^0.6.1",
